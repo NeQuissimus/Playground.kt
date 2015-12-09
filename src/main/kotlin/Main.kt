@@ -24,6 +24,11 @@ fun main(args: Array<String>) {
   println(phoneWordsIter(mapping, intArrayOf(2, 2, 3)))
   println(phoneWordsRec(mapping, intArrayOf(2, 2, 3), arrayListOf("")))
   println(phoneWordsFun(mapping, intArrayOf(2, 2, 3)))
+
+  println(palindrome(1))
+  println(palindrome(123))
+  println(palindrome(121))
+  println(palindrome(133331))
 }
 
 fun productIter(xs: Iterable<Int>): Int {
@@ -118,4 +123,24 @@ fun phoneWordsFun(mapping: Map<Int, List<Char>>, number: IntArray): List<String>
     {acc: List<String>, e: List<Char> -> 
       acc.flatMap({s: String -> 
         e.map({c: Char -> s + c})})})
+}
+
+fun palindrome(n: Int): Boolean {
+  fun reverse(n: Int): Int {
+    var i = 0
+    var x = n
+
+    while (x > 0) {
+      i = i * 10 + x % 10
+      x /= 10
+    }
+
+    return i
+  }
+
+  return n == reverse(n)
+}
+
+fun duplicates(elems: Iterable<T>): List<T> {
+  elems.map({e -> Pair(e, 1)})
 }

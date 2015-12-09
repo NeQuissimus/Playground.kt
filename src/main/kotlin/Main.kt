@@ -29,6 +29,8 @@ fun main(args: Array<String>) {
   println(palindrome(123))
   println(palindrome(121))
   println(palindrome(133331))
+
+  println(duplicates(arrayListOf(1, 1, 2, 3, 1, 4, 2, 5, 6, 6)))
 }
 
 fun productIter(xs: Iterable<Int>): Int {
@@ -119,9 +121,9 @@ fun phoneWordsRec(mapping: Map<Int, List<Char>>, number: IntArray, words: List<S
 fun phoneWordsFun(mapping: Map<Int, List<Char>>, number: IntArray): List<String> {
   val chars: List<List<Char>> = number.map({i -> mapping[i].orEmpty()})
 
-  return chars.fold(arrayListOf(""), 
-    {acc: List<String>, e: List<Char> -> 
-      acc.flatMap({s: String -> 
+  return chars.fold(arrayListOf(""),
+    {acc: List<String>, e: List<Char> ->
+      acc.flatMap({s: String ->
         e.map({c: Char -> s + c})})})
 }
 
@@ -141,6 +143,6 @@ fun palindrome(n: Int): Boolean {
   return n == reverse(n)
 }
 
-fun duplicates(elems: Iterable<T>): List<T> {
-  elems.map({e -> Pair(e, 1)})
-}
+fun <T> duplicates(elems: Iterable<T>): List<T> = elems.groupBy({ it }).filter({ it.value.size() > 1 }).flatMap({ it.value.drop(1) })
+
+//.filter { it.size() > 1 }.map({ it.first })
